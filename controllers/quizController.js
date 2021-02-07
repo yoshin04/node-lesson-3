@@ -7,7 +7,7 @@ module.exports = {
   create: async (req, res, next) => {
     try {
       const quizData = await Quiz.getQuiz();
-      res.json({
+      return res.json({
         status: httpStatus.OK,
         quizData: quizData
       });

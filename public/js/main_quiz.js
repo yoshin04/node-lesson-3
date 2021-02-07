@@ -7,18 +7,31 @@ const startButton = document.getElementById('start_button');
 
 startButton.addEventListener('click', () => {
   startButton.hidden = true;
+  fetchQuizData(1);
+  
+
+  // const xhr = new XMLHttpRequest();
+  // xhr.open('GET', '/quiz/api', true);
+  // req.send(null);
+  // xhr.onreadystatechange = function() {
+  //   if (xhr.readyState === 4 && xhr.status === 200) {
+  //     // setNextQuiz(`${quizData}`, index);
+  //     console.log(`${quizData}`);
+  //   }
+  // };
+});
+
+const fetchQuizData = async (index) => {
   title.innerText = "取得中";
   question.innerText = "少々お待ち下さい";
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', '/quiz/api', true);
-  req.send(null);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // setNextQuiz(`${quizData}`, index);
-      console.log(`${quizData}`);
-    }
-  };
-});
+  try {
+    const response = await fetch('quiz/api');
+    // const quizData = await response.json();
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // const setNextQuiz = (quiz, index) => {
 //   while (answersArea.firstChild) {
