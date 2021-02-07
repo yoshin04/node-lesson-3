@@ -1,16 +1,15 @@
 const Quiz = require('../models/quizModel');
-const quizApi = "https://opentdb.com/api.php?amount=10";
+const httpStatus = require('http-status-codes');
 module.exports = {
   index: (req, res) => {
     res.render('quiz/index');
   },
-  create: async (index, res, next) => {
+  create: async (req, res, next) => {
     try {
-      const response = await fetch(quizApi);
-      const quizData = await response.json();
-      const quiz = new Quiz(quizData);
-      res.render('quiz/index', {
-        quiz: quiz
+      const quizData = await Quiz.getQuiz();
+      res.json({
+        status: httpStatus.OK,
+        quizData: quizData
       });
     } catch (err) {
       console.log(err);

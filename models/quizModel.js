@@ -1,42 +1,13 @@
-class Quiz {
-  constructor(quizData) {
-    this._quizzes = quizData.results;
-    this._correctAnswersNum = 0;
-  }
+global.fetch = require('node-fetch');
+const quizApi = "https://opentdb.com/api.php?amount=10";
 
-  getQUizCategory(index) {
-    return this._quizzes[index - 1].category;
-  }
-
-  getQuizDifficulty(index) {
-    return this._quizzes[index - 1].difficulty;
-  }
-
-  getQuizQuestion(index) {
-    return this._quizzes[index - 1].question;
-  }
-
-  getNumQuizzes() {
-    return this._quizzes.length;
-  }
-
-  getCorrectAnswer(index) {
-    return this._quizzes[index - 1].correct_answer;
-  }
-
-  getIncorrectAnswers(index) {
-    return this._quizzes[index - 1].incorrect_answers;
-  }
-
-  countCorrectAnswers(index, answer) {
-    const correctAnswer = this._quizzes[index - 1].correct_answer;
-    if (answer === correctAnswer) {
-      return this._correctAnswersNum++;
-    }
-  }
-  getCorrectAnswersNum() {
-    return this._correctAnswersNum;
+module.exports = {
+  getQuiz: async () => {
+    try {
+      const response = await fetch(quizApi);
+       return response.json();
+    } catch (error) {
+      console.log(error);
+    } 
   }
 }
-
-module.exports =  { Quiz }
