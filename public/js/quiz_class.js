@@ -1,6 +1,6 @@
 class Quiz {
-  constructor(quizData) {
-    this._quizzes = quizData.results;
+  constructor(quizAPI) {
+    this._quizzes = quizAPI.quizData.results;
     this._correctAnswersNum = 0;
   }
 

@@ -16,11 +16,9 @@ const fetchQuizData = async (index) => {
   question.innerText = "少々お待ち下さい";
   try {
     const response = await fetch('quiz/api');
-    const quizData = await response.json();
-    console.log(quizData);
-    const quiz = new Quiz(quizData);
+    const quizAPI = await response.json();
+    const quiz = new Quiz(quizAPI);
     setNextQuiz(quiz, index);
-    console.log(quiz);
   } catch (error) {
     console.log(error);
   }

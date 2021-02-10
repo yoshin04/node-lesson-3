@@ -4,12 +4,11 @@ module.exports = {
   index: (req, res) => {
     res.render('quiz/index');
   },
-  create: async (req, res, next) => {
+  getQuizData: async (req, res, next) => {
     try {
       const quizData = await Quiz.getQuiz();
       return res.json({
-        status: httpStatus.OK,
-        quizData: quizData
+        quizData
       });
     } catch (err) {
       console.log(err);
