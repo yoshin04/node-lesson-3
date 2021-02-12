@@ -1,4 +1,4 @@
-import { Quiz } from "./quiz_class.js";
+import { Quiz } from './quiz_class.js';
 const title = document.getElementById('title');
 const genre = document.getElementById('genre');
 const difficulty = document.getElementById('difficulty');
@@ -11,9 +11,9 @@ startButton.addEventListener('click', () => {
   fetchQuizData(1);
 });
 
-const fetchQuizData = async (index) => {
-  title.innerText = "取得中";
-  question.innerText = "少々お待ち下さい";
+const fetchQuizData = async index => {
+  title.innerText = '取得中';
+  question.innerText = '少々お待ち下さい';
   try {
     const response = await fetch('quiz/api');
     const quizAPI = await response.json();
@@ -22,7 +22,7 @@ const fetchQuizData = async (index) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 const setNextQuiz = (quiz, index) => {
   while (answersArea.firstChild) {
@@ -41,7 +41,7 @@ const makeQuiz = (quiz, index) => {
   difficulty.innerText = `[難易度] ${quiz.getQuizDifficulty(index)}`;
   question.innerText = `[クイズ] ${quiz.getQuizQuestion(index)}`;
 
-  const answers = buildAnswers(quiz, index);
+  // const answers = buildAnswers(quiz, index);
 
   answers.forEach(answer => {
     const answerElement = document.createElement('li');
@@ -59,24 +59,20 @@ const makeQuiz = (quiz, index) => {
   });
 };
 
-const shuffleArray = ([...array]) => {
-  for (let i = array.length - 1; i >= 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
+// const shuffleArray = ([...array]) => {
+//   for (let i = array.length - 1; i >= 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [array[i], array[j]] = [array[j], array[i]];
+//   }
+//   return array;
+// };
 
-const buildAnswers = (quiz, index) => {
-  const answers = [
-    quiz.getCorrectAnswer(index),
-    ...quiz.getIncorrectAnswers(index)
-  ];
-  return shuffleArray(answers);
-}
+// const buildAnswers = (quiz, index) => {
+//   const answers = [quiz.getCorrectAnswer(index), ...quiz.getIncorrectAnswers(index)];
+//   return shuffleArray(answers);
+// };
 
-
-const finishQuiz = (quiz) => {
+const finishQuiz = quiz => {
   title.innerText = `あなたの正答数は${quiz.getCorrectAnswersNum()}です。`;
   genre.innerText = '';
   difficulty.innerText = '';
@@ -88,4 +84,4 @@ const finishQuiz = (quiz) => {
   restartButton.addEventListener('click', () => {
     location.reload();
   });
-}
+};

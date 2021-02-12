@@ -1,5 +1,4 @@
 const Quiz = require('../models/quizModel');
-const httpStatus = require('http-status-codes');
 module.exports = {
   index: (req, res) => {
     res.render('quiz/index');
@@ -7,11 +6,12 @@ module.exports = {
   getQuizData: async (req, res, next) => {
     try {
       const quizData = await Quiz.getQuiz();
+      console.log(quizData);
       return res.json({
-        quizData
+        quizData,
       });
     } catch (err) {
       console.log(err);
     }
-  }
-}
+  },
+};
