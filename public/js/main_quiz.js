@@ -17,6 +17,7 @@ const fetchQuizData = async index => {
   try {
     const response = await fetch('quiz/api');
     const quizAPI = await response.json();
+    console.log(quizAPI)
     const quiz = new Quiz(quizAPI);
     setNextQuiz(quiz, index);
   } catch (error) {
@@ -41,17 +42,16 @@ const makeQuiz = (quiz, index) => {
   difficulty.innerText = `[難易度] ${quiz.getQuizDifficulty(index)}`;
   question.innerText = `[クイズ] ${quiz.getQuizQuestion(index)}`;
 
-  // const answers = buildAnswers(quiz, index);
-
-  answers.forEach(answer => {
+  const choices = quiz.getChoices(index)
+  choices.forEach(choice => {
     const answerElement = document.createElement('li');
     answersArea.appendChild(answerElement);
 
     const buttonElement = document.createElement('button');
-    buttonElement.innerText = answer;
+    buttonElement.innerText = choice;
     answersArea.appendChild(buttonElement);
     buttonElement.addEventListener('click', () => {
-      quiz.countCorrectAnswers(index, answer);
+      quiz.countCorrectAnswers(index, choice);
       index++;
       answersArea.removeChild(answersArea.firstChild);
       setNextQuiz(quiz, index);
@@ -59,18 +59,6 @@ const makeQuiz = (quiz, index) => {
   });
 };
 
-// const shuffleArray = ([...array]) => {
-//   for (let i = array.length - 1; i >= 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [array[i], array[j]] = [array[j], array[i]];
-//   }
-//   return array;
-// };
-
-// const buildAnswers = (quiz, index) => {
-//   const answers = [quiz.getCorrectAnswer(index), ...quiz.getIncorrectAnswers(index)];
-//   return shuffleArray(answers);
-// };
 
 const finishQuiz = quiz => {
   title.innerText = `あなたの正答数は${quiz.getCorrectAnswersNum()}です。`;

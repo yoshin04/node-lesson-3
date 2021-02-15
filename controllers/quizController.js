@@ -6,7 +6,6 @@ module.exports = {
   getQuizData: async (req, res, next) => {
     try {
       const quizData = await Quiz.getQuiz();
-      console.log(quizData);
       return res.json({
         quizData,
       });

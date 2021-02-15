@@ -1,6 +1,6 @@
 class Quiz {
   constructor(quizAPI) {
-    this._quizzes = quizAPI.quizData.results;
+    this._quizzes = quizAPI.quizData;
     this._correctAnswersNum = 0;
   }
 
@@ -28,12 +28,17 @@ class Quiz {
     return this._quizzes[index - 1].incorrect_answers;
   }
 
+  getChoices(index) {
+    return this._quizzes[index - 1].choices;
+  }
+
   countCorrectAnswers(index, answer) {
     const correctAnswer = this._quizzes[index - 1].correct_answer;
     if (answer === correctAnswer) {
       return this._correctAnswersNum++;
     }
   }
+
   getCorrectAnswersNum() {
     return this._correctAnswersNum;
   }
