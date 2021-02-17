@@ -8,9 +8,6 @@ module.exports = {
       const response = await fetch(quizApi);
       const quizAPI = await response.json();
       quizAPI.results.forEach(result => {
-        let quizData = {};
-        let answers = [];
-
         const shuffleArray = ([...array]) => {
           for (let i = array.length - 1; i >= 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -18,25 +15,21 @@ module.exports = {
           }
           return array;
         };
-
-        const buildAnswers = (result) => {
-          answers = [result.correct_answer, ...result.incorrect_answers];
+        const buildAnswers = result => {
+          const answers = [result.correct_answer, ...result.incorrect_answers];
           return shuffleArray(answers);
         };
-
-        answers = buildAnswers(result);
-
-        quizData = {
+        const answers = buildAnswers(result);
+        const quizData = {
           category: result.category,
           type: result.type,
           difficulty: result.difficulty,
           question: result.question,
           correct_answer: result.correct_answer,
           incorrect_answers: result.incorrect_answers,
-          choices: answers, 
-        }
+          choices: answers,
+        };
         results.push(quizData);
-        quizData = {};
       });
       return results;
     } catch (error) {
